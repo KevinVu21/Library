@@ -11,7 +11,11 @@ function addBookToLibrary(book) {
     myLibrary.push(book);
     display(); // Display the updated library
 }
-
+function test(){
+    myLibrary.forEach((book) =>{
+        console.log(book.title);
+    });
+}
 function display() {
     const container = document.querySelector('.container');
     container.innerHTML = ''; // Clear the container before adding new books
@@ -53,7 +57,7 @@ const modal = document.getElementById('modal');
 const addBookBtn = document.getElementById('add-book');
 const closeBtn = document.querySelector('.close');
 const form = document.getElementById('book-form');
-
+const submitBtn = document.querySelector('.add');
 // Open the modal when "Add Book" button is clicked
 addBookBtn.addEventListener('click', () => {
     modal.style.display = 'flex';
@@ -73,17 +77,32 @@ window.addEventListener('click', (event) => {
     }
 });
 
-// Handle form submission
-form.addEventListener('submit', (event) => {
+
+submitBtn.addEventListener('click', (event) => {
     event.preventDefault();
 
     const author = document.getElementById('author').value;
     const title = document.getElementById('title').value;
     const pages = document.getElementById('pages').value;
-    const hasRead = document.querySelector('input[name="read-status"]:checked')?.value || 'false';
+    const hasRead = document.getElementById('hasRead')?.checked || false;
 
-    const newBook = Book(author, title, pages, hasRead);
+    if (!author || !title || !pages) {
+        alert("Please fill in all fields.");
+        return;
+    }
+
+    const newBook = new Book(author, title, pages, hasRead);
     addBookToLibrary(newBook);
-    form.reset();
-    modal.style.display = 'none';
+
+    // Clear input fields manually since there's no form
+    document.getElementById('author').value = "";
+    document.getElementById('title').value = "";
+    document.getElementById('pages').value = "";
+    if (document.getElementById('hasRead')) {
+        document.getElementById('hasRead').checked = false;
+    }
+
+    modal.style.display = 'none'; // Close modal after adding book
 });
+
+test();
