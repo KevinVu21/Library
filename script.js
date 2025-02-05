@@ -11,11 +11,7 @@ function addBookToLibrary(book) {
     myLibrary.push(book);
     display(); // Display the updated library
 }
-function test(){
-    myLibrary.forEach((book) =>{
-        console.log(book.title);
-    });
-}
+
 function display() {
     const container = document.querySelector('.container');
     container.innerHTML = ''; // Clear the container before adding new books
@@ -105,4 +101,3 @@ submitBtn.addEventListener('click', (event) => {
     modal.style.display = 'none'; // Close modal after adding book
 });
 
-test();
